@@ -61,7 +61,7 @@ const toFunction = (fString?: string) => {
 
 export const activate = (context: vscode.ExtensionContext): void => {
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.map`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineMap`, () => {
             vscode.window
                 .showInputBox({
                     title: `map`,
@@ -74,7 +74,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.mapString`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineMapString`, () => {
             vscode.window
                 .showInputBox({
                     title: `map string`,
@@ -88,7 +88,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.filter`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineFilter`, () => {
             vscode.window
                 .showInputBox({
                     title: `filter`,
@@ -101,7 +101,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.filterRegex`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineFilterRegex`, () => {
             vscode.window
                 .showInputBox({
                     title: `filter regex`,
@@ -119,7 +119,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.all`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineAll`, () => {
             vscode.window
                 .showInputBox({
                     title: `all`,
@@ -132,7 +132,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand(`jsm.generate`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineGenerate`, () => {
             vscode.window
                 .showInputBox({
                     title: `generate, function`,

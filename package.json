@@ -13,40 +13,40 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:jsm.map",
-		"onCommand:jsm.mapString",
-		"onCommand:jsm.filter",
-		"onCommand:jsm.filterRegex",
-		"onCommand:jsm.all",
-		"onCommand:jsm.generate"
+		"onCommand:jsm.lineMap",
+		"onCommand:jsm.lineMapString",
+		"onCommand:jsm.lineFilter",
+		"onCommand:jsm.lineFilterRegex",
+		"onCommand:jsm.lineAll",
+		"onCommand:jsm.lineGenerate"
 
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "jsm.map",
-				"title": "jsmap"
+				"command": "jsm.lineMap",
+				"title": "line map"
 			},
 			{
-				"command": "jsm.mapString",
-				"title": "jsstring"
+				"command": "jsm.lineMapString",
+				"title": "line string"
 			},
 			{
-				"command": "jsm.filter",
-				"title": "jsfilter"
+				"command": "jsm.lineFilter",
+				"title": "line filter"
 			},
 			{
-				"command": "jsm.filterRegex",
-				"title": "jsregex"
+				"command": "jsm.lineFilterRegex",
+				"title": "line regex"
 			},
 			{
-				"command": "jsm.all",
-				"title": "jsall"
+				"command": "jsm.lineAll",
+				"title": "line all"
 			},
 			{
-				"command": "jsm.generate",
-				"title": "jsgenerate"
+				"command": "jsm.lineGenerate",
+				"title": "line generate"
 			}
 		]
 	},
