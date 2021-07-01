@@ -2,7 +2,7 @@
 	"name": "jsm",
 	"displayName": "jsm",
 	"description": "run javascript on a file",
-	"version": "0.0.4",
+	"version": "0.1.1",
 
 	"publisher": "SamFuller",
 
@@ -17,8 +17,16 @@
 		"onCommand:jsm.lineMapString",
 		"onCommand:jsm.lineFilter",
 		"onCommand:jsm.lineFilterRegex",
-		"onCommand:jsm.lineAll",
-		"onCommand:jsm.lineGenerate"
+		"onCommand:jsm.lineApply",
+		"onCommand:jsm.lineGenerate",
+
+		"onCommand:jsm.jsApply",
+		"onCommand:jsm.jsToJson",
+
+
+		"onCommand:jsm.jsonApply",
+		"onCommand:jsm.jsonToJs"
+
 
 	],
 	"main": "./dist/extension.js",
@@ -41,12 +49,30 @@
 				"title": "line regex"
 			},
 			{
-				"command": "jsm.lineAll",
-				"title": "line all"
+				"command": "jsm.lineApply",
+				"title": "line apply"
 			},
 			{
 				"command": "jsm.lineGenerate",
 				"title": "line generate"
+			},
+
+			{
+				"command": "jsm.jsApply",
+				"title": "javascript apply"
+			},
+			{
+				"command": "jsm.jsToJson",
+				"title": "javascript to json"
+			},
+
+			{
+				"command": "jsm.jsonApply",
+				"title": "JSON apply"
+			},
+			{
+				"command": "jsm.jsonToJs",
+				"title": "json to javascript"
 			}
 		]
 	},

@@ -23,8 +23,6 @@ const apply = (f: (text: string) => string) => {
             });
         });
     } else {
-        console.log(`all`);
-
         editor.edit((editBuilder) => {
             const text = editor?.document.getText();
 
@@ -51,7 +49,25 @@ const mapLines = (f: (text: string) => string) => (text: string) =>
 const filterLines = (f: (text: string) => string) => (text: string) =>
     text.split(/\r?\n/).filter(f).join(`\n`);
 
-const toFunction = (fString?: string) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// ty to https://stackoverflow.com/questions/11233498/json-stringify-without-quotes-on-properties
+const objToString = (obj: any): string => {
+    const cleaned = JSON.stringify(obj, null, 4);
+
+    return cleaned.replace(/^[\t ]*"[^:\n\r]+(?<!\\)":/gm, function (match) {
+        return match.replace(/"/g, ``);
+    });
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const applyJS = (f: (text: unknown) => any) => (text: string) => {
+    return objToString(f(eval(`(${text})`)));
+};
+
+const applyJSON = (f: (text: unknown) => unknown) => (text: string) =>
+    JSON.stringify(f(JSON.parse(text)), null, 4);
+
+const toJS = (fString?: string) => {
     if (!fString) return undefined;
 
     const f = eval(fString);
@@ -68,7 +84,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
                     value: `(line, index) => `,
                 })
                 .then((value) => {
-                    apply(mapLines(toFunction(value)));
+                    apply(mapLines(toJS(value)));
                 });
         }),
     );
@@ -80,9 +96,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
                     title: `map string`,
                 })
                 .then((value) => {
-                    apply(
-                        mapLines(toFunction(`(line, index) => \`${value}\``)),
-                    );
+                    apply(mapLines(toJS(`(line, index) => \`${value}\``)));
                 });
         }),
     );
@@ -95,7 +109,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
                     value: `(line, index) => `,
                 })
                 .then((value) => {
-                    apply(filterLines(toFunction(value)));
+                    apply(filterLines(toJS(value)));
                 });
         }),
     );
@@ -109,9 +123,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
                 .then((value) => {
                     apply(
                         filterLines(
-                            toFunction(
-                                `(line, index) => line.match(/${value}/)`,
-                            ),
+                            toJS(`(line, index) => line.match(/${value}/)`),
                         ),
                     );
                 });
@@ -119,14 +131,14 @@ export const activate = (context: vscode.ExtensionContext): void => {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerTextEditorCommand(`jsm.lineAll`, () => {
+        vscode.commands.registerTextEditorCommand(`jsm.lineApply`, () => {
             vscode.window
                 .showInputBox({
                     title: `all`,
                     value: `(text) => `,
                 })
                 .then((value) => {
-                    apply(toFunction(value));
+                    apply(toJS(value));
                 });
         }),
     );
@@ -155,7 +167,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
                                 ];
 
                                 for (const index of array) {
-                                    array[index] = toFunction(f)(
+                                    array[index] = toJS(f)(
                                         index,
                                         array[index - 1],
                                     );
@@ -177,6 +189,46 @@ export const activate = (context: vscode.ExtensionContext): void => {
                             });
                         });
                 });
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.jsApply`, () => {
+            vscode.window
+                .showInputBox({
+                    title: `map`,
+                    value: `(object) => ({...object})`,
+                })
+                .then((value) => {
+                    apply(applyJS(toJS(value)));
+                });
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.jsToJson`, () => {
+            apply((text) => {
+                return JSON.stringify(toJS(`(${text})`), null, 4);
+            });
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.jsonApply`, () => {
+            vscode.window
+                .showInputBox({
+                    title: `map`,
+                    value: `(object) => ({...object})`,
+                })
+                .then((value) => {
+                    apply(applyJSON(toJS(value)));
+                });
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.jsonToJs`, () => {
+            apply((text) => objToString(JSON.parse(text)));
         }),
     );
 };
