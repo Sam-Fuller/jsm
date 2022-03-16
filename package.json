@@ -2,7 +2,7 @@
 	"name": "jsm",
 	"displayName": "jsm",
 	"description": "run javascript on a file",
-	"version": "0.1.1",
+	"version": "0.1.3",
 
 	"publisher": "SamFuller",
 
@@ -14,20 +14,21 @@
 	],
 	"activationEvents": [
 		"onCommand:jsm.lineMap",
-		"onCommand:jsm.lineMapString",
 		"onCommand:jsm.lineFilter",
+		"onCommand:jsm.lineSort",
+
 		"onCommand:jsm.lineFilterRegex",
-		"onCommand:jsm.lineApply",
-		"onCommand:jsm.lineGenerate",
+		"onCommand:jsm.lineMapRegex",
 
-		"onCommand:jsm.jsApply",
+		"onCommand:jsm.fileApply",
+		"onCommand:jsm.fileGenerate",
+
+		"onCommand:jsm.jsMap",
+		"onCommand:jsm.jsFilter",
+		"onCommand:jsm.jsSort",
+
 		"onCommand:jsm.jsToJson",
-
-
-		"onCommand:jsm.jsonApply",
 		"onCommand:jsm.jsonToJs"
-
-
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -37,24 +38,30 @@
 				"title": "line map"
 			},
 			{
-				"command": "jsm.lineMapString",
-				"title": "line string"
-			},
-			{
 				"command": "jsm.lineFilter",
 				"title": "line filter"
 			},
 			{
+				"command": "jsm.lineSort",
+				"title": "line sort"
+			},
+
+			{
 				"command": "jsm.lineFilterRegex",
-				"title": "line regex"
+				"title": "filter regex"
 			},
 			{
-				"command": "jsm.lineApply",
-				"title": "line apply"
+				"command": "jsm.lineMapRegex",
+				"title": "map regex"
+			},
+
+			{
+				"command": "jsm.fileApply",
+				"title": "file apply"
 			},
 			{
-				"command": "jsm.lineGenerate",
-				"title": "line generate"
+				"command": "jsm.fileGenerate",
+				"title": "file generate"
 			},
 
 			{
@@ -62,13 +69,17 @@
 				"title": "javascript apply"
 			},
 			{
+				"command": "jsm.jsFilter",
+				"title": "javascript filter"
+			},
+			{
+				"command": "jsm.jsSort",
+				"title": "javascript sort"
+			},
+			
+			{
 				"command": "jsm.jsToJson",
 				"title": "javascript to json"
-			},
-
-			{
-				"command": "jsm.jsonApply",
-				"title": "JSON apply"
 			},
 			{
 				"command": "jsm.jsonToJs",
