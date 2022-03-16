@@ -16,3 +16,6 @@ javascript sort - sort a list by a given function
 
 javascript to json - convert a javascript object to a json object  
 json to javascript - convert a json object to a javascript object  
+
+## Github
+[github.com/Sam-Fuller/jsm](https://github.com/Sam-Fuller/jsm)
