@@ -17,5 +17,8 @@ javascript sort - sort a list by a given function
 javascript to json - convert a javascript object to a json object  
 json to javascript - convert a json object to a javascript object  
 
+javascript to csv - convert a nested javascript list into a csv
+csv to javascript - convert a csv into a list of javascript objects
+
 ## Github
 [github.com/Sam-Fuller/jsm](https://github.com/Sam-Fuller/jsm)

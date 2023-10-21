@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+
 import * as vscode from 'vscode';
 
 const apply = (f: (text: string) => string) => {
@@ -11,7 +12,7 @@ const apply = (f: (text: string) => string) => {
         || (editor.selections.length
             && editor.selections[0].start.line !== editor.selections[0].end.line
             && editor.selections[0].start.character
-                !== editor.selections[0].end.character)
+            !== editor.selections[0].end.character)
     ) {
         editor.edit((editBuilder) => {
             editor?.selections.map((selection: vscode.Selection) => {
@@ -270,6 +271,44 @@ export const activate = (context: vscode.ExtensionContext): void => {
     context.subscriptions.push(
         vscode.commands.registerTextEditorCommand(`jsm.jsonToJs`, () => {
             apply((text) => objToString(JSON.parse(text)));
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.csvToJs`, () => {
+            apply((data: string) => {
+                const delimiter = ","
+                const titles = data.slice(0, data
+                    .indexOf('\n')).split(delimiter);
+
+                const titleValues = data.slice(data
+                    .indexOf('\n') + 1).split('\n');
+
+                const ansArray = titleValues.map(function (v) {
+
+                    const values = v.split(delimiter);
+
+                    const storeKeyValue = titles.reduce(
+                        function (obj, title, index) {
+                            obj[title] = values[index];
+                            return obj;
+                        }, {});
+
+                    return storeKeyValue;
+                });
+
+                return ansArray;
+            });
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(`jsm.JsToCsv`, () => {
+            apply(toJSFunction(`(${text})`)
+                .map((row) =>
+                    row.map((cell) => JSON.stringify(cell)).join(`,`)
+                ).join(`\n`)
+            );
         }),
     );
 };

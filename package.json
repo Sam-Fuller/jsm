@@ -28,7 +28,10 @@
 		"onCommand:jsm.jsSort",
 
 		"onCommand:jsm.jsToJson",
-		"onCommand:jsm.jsonToJs"
+		"onCommand:jsm.jsonToJs",
+
+		"onCommand:jsm.jsToCsv",
+		"onCommand:jsm.csvToJs"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -84,6 +87,15 @@
 			{
 				"command": "jsm.jsonToJs",
 				"title": "json to javascript"
+			},
+
+			{
+				"command": "jsm.jsToCsv",
+				"title": "javascript to csv"
+			},
+			{
+				"command": "jsm.csvToJs",
+				"title": "csv to javascript"
 			}
 		]
 	},
